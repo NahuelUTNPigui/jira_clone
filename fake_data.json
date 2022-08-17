@@ -1,0 +1,111 @@
+{
+    "_coments":["nada"],
+    "proyectos":[{
+        "id":1,
+        "nombre":"cosa",
+        "descripcion":"cosa",
+        "version":"0.0.1",
+        "temas":" mates arte ",
+        "fecha_inicio":"2022-07-07"
+        
+      },{
+        "id":2,
+        "nombre":"eso",
+        "descripcion":"eso",
+        "version":"0.0.1",
+        "temas":" python orm ",
+        "fecha_inicio":"2022-08-08"
+      }],
+    "criterios":[
+      {
+        "id":1,
+        "nombre":"Caso 1",
+        "cod_verificable":1,
+        "aceptado":false
+      }
+    ],
+    "verificables":[
+      {"id":1}
+    ],
+    "use_cases":[
+      {
+        "nombre":"Caso 1",
+        "descripcion":"No hay mucho que decir",
+        "cod_proyecto":1,
+        "cod_verificable":1
+      }
+    ],
+    "estados":[
+      {"nombre":"todo","orden":1,"cod_proyecto":1},
+      {"nombre":"doing","orden":2,"cod_proyecto":1},
+      {"nombre":"done","orden":3,"cod_proyecto":1},
+      {"nombre":"todo","orden":1,"cod_proyecto":2},
+      {"nombre":"done","orden":2,"cod_proyecto":2},
+      {"nombre":"doing","orden":3,"cod_proyecto":2}
+    ],
+    "tipoactividades":[
+      {"nombre":"Investigar fiber","cod_proyecto":1},
+      {"nombre":"Investigar express","cod_proyecto":2}
+    ],
+
+    "actividades":[
+      {
+        "nombre":"laburar",
+        "descripcion":"laburar mucho",
+        "cod_estado":1,
+        "cod_tipo_tarea":1,
+        "tipo_actividad":1,
+        "cod_proyecto":1,
+        "backlog":true,
+        "backlog_actual":false,
+        "esfuerzo_estimado":1,
+        "gravedad":1,
+        "prioridad":1
+      },
+      {
+        "nombre":"do",
+        "descripcion":"to much do",
+        "cod_estado":1,
+        "cod_tipo_tarea":1,
+        "tipo_actividad":1,
+        "cod_proyecto":1,
+        "backlog":true,
+        "backlog_actual":false,
+        "esfuerzo_estimado":1,
+        "gravedad":1,
+        "prioridad":1
+      },
+      {
+        "nombre":"trabajar",
+        "descripcion":"trabajar mucho",
+        "cod_estado":1,
+        "tipo_actividad":1,
+        "cod_tipo_tarea":1,
+        "cod_proyecto":2,
+        "backlog":true,
+        "backlog_actual":false,
+        "esfuerzo_estimado":1,
+        "gravedad":1,
+        "prioridad":1
+      },
+      
+      {
+        "nombre":"work",
+        "descripcion":"to much work",
+        "cod_estado":1,
+        "tipo_actividad":1,
+        "cod_tipo_tarea":1,
+        "cod_proyecto":2,
+        "backlog":true,
+        "backlog_actual":false,
+        "esfuerzo_estimado":1,
+        "gravedad":1,
+        "prioridad":1
+      }
+    ],
+    "bugs":[],
+    "feautures":[]
+
+
+
+}
