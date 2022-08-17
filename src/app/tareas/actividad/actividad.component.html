@@ -1,0 +1,96 @@
+<div class="pure-g">
+    <div class="pure-g pure-u-1">
+        <button (click)="volver()">Volver</button>
+        <button (click)="guardar()">Guardar</button>
+    </div>
+    <div class="pure-g pure-u-1">
+        <br>
+        <div class="pure-u-1-2">
+            <label for="">Id</label>
+            <input type="text">
+        </div>
+        <div class="pure-u-1-2">
+            <label for="cboTipoTarea">Tipo Tarea</label>
+            <select name="" id="">
+                <option>Actividad</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="pure-g pure-u-1">
+        <br>
+        <div class="pure-u-1-2">
+            <label for="">Nombre</label>
+            <input type="text" name="" id="" [(ngModel)]="nombre">
+        </div>
+        <div class="pure-u-1-2">
+            <label for="taDescripcion">Descripcion</label>
+            <textarea id="taDescripcion" cols="30" rows="10" [(ngModel)]="descripcion"></textarea>
+        </div>
+    </div>
+    <div class="pure-g pure-u-1">
+        <br>
+        <div class="pure-u-1-2">
+            <label for="">Gravedad</label>
+            <input type="number" [(ngModel)]="gravedad">
+        </div>
+        <div class="pure-u-1-2">
+            <label for="">Prioridad</label>
+            <input type="number" [(ngModel)]="prioridad">
+        </div>
+
+    </div>
+    <div class="pure-g pure-u-1">
+        <br>
+        <div class="pure-u-1-2">
+            <label for="">Esfuerzo estimado</label>
+            <input type="number" [(ngModel)]="esfuerzo_estimado">
+        </div>
+        <div class="pure-u-1-2">
+            <label for="">Estado</label>
+
+            <select id="" [(ngModel)]="idEstado" (change)="actualizarInput()" size="3">
+                <option [value]="estado.id" *ngFor="let estado of estados">{{estado.nombre}}</option>
+
+            </select>
+        </div>
+    </div>
+    <div class="pure-g pure-u-1">
+        <hr/>
+    </div>
+    
+    <div class="pure-g pure-u-1">
+        <br>
+        <div class="pure-u-1-3">
+            <label for="">Elegir tipo actividad</label>
+        </div>
+        <div class="pure-u-1-3">
+            <div class="pure-g pure-u-1">
+                <input type="text" [(ngModel)]="nombre_tipo_actividad">
+            </div>
+            <div class="pure-g pure-u-1">
+                <button (click)="eliminarTipoActividad()">Eliminar tipo actividad</button>
+            </div>
+            
+        </div>
+        <div class="pure-u-1-3">
+            <label for="cboTipoActividad">Tipos actividad</label>
+            <select id="cboTipoActividad" [(ngModel)]="idTipoActividad" size="3" (change)="actualizarInput()">
+                <option [value]="ta.id" *ngFor="let ta of tipoActividades">{{ta.nombre}}</option>
+
+            </select>
+        </div>
+    </div>
+    <div  class="pure-g pure-u-1">
+        <br>
+        <div class="pure-u-1-3">
+            Nueva tipo actividad
+        </div>
+        <div class="pure-u-1-3">
+            <input type="text" [(ngModel)]="nombre_nuevo_tipo_actividad">
+        </div>
+        <div class="pure-u-1-3">
+            <button (click)="agregarTipoActividad()">Agregar tipo actividad</button>
+        </div>
+    </div>
+</div>

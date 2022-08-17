@@ -1,0 +1,49 @@
+<div class="pure-g">
+    <div class="pure-g pure-u-1">
+        <button (click)="volver()">Volver</button>
+    </div>
+    
+    <div class="pure-u-5-8">
+        <br>
+        <div class="pure-g">
+            <div class="pure-u-1-4">
+                Nombre
+            </div>
+            <div class="pure-u-3-4">
+                <input type="text" [(ngModel)]="nombre">
+            </div>
+        </div>
+        <br>
+        <div class="pure-g">
+            <div class="pure-u-1-4">
+                Orden
+            </div>
+            <div class="pure-u-3-4">
+                <input type="number" [(ngModel)]="orden">
+            </div>
+        </div>
+        <br>
+        <div class="pure-g">
+            <div class="pure-u-1-4">
+                <button (click)="nuevo()">Nuevo</button>
+            </div>
+            <div class="pure-u-1-4">
+                <button (click)="agregar()">Agregar</button>
+            </div>
+            <div class="pure-u-1-4">
+                <button (click)="modificar()">Modificar</button>
+            </div>
+            <div class="pure-u-1-4">
+                <button (click)="quitar()">Quitar</button>
+            </div>
+        </div>
+
+    </div>
+    <div class="pure-u-3-8">
+        <select  size="5" [(ngModel)]="id_estado" (change)="actualizarInputs()">
+                    
+            <option [value]="estado.id" *ngFor="let estado of estados">{{estado.nombre}}</option>
+        </select>
+    </div>
+
+</div>

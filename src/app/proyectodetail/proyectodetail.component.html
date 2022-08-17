@@ -1,0 +1,16 @@
+
+<div class="pure-g">
+    <div class="pure-u-1-4">
+        <div class="sidebar">
+            <div><button (click)="backlog()">Backlog</button></div>
+            <div><button (click)="board()">Board</button></div>
+            <div><button (click)="usescases()">Casos de uso</button></div>
+            <div><button (click)="tareas()">Tareas</button></div>
+            <div><button (click)="settings()">Configuracion</button></div>
+        </div>
+    </div>
+    <div class="pure-u-3-4">
+
+        <router-outlet></router-outlet>
+    </div>
+</div>

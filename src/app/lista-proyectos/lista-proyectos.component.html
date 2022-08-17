@@ -1,0 +1,49 @@
+<div class="pure-g">
+    <div class="pure-u-1-24"></div>
+    <div class="pure-u-1-8">
+        Buscar por nombre
+    </div>
+    <div class="pure-u-1-8">
+        <input type="text" class="pure-u-3-4">
+    </div>
+    <div class="pure-u-1-8">
+        Buscar por tags
+    </div>
+    <div class="pure-u-1-8">
+        <input type="text" class="pure-u-3-4">
+    </div>
+    <div class="pure-u-1-8">
+        <button >Buscar</button>
+    </div>
+    <div class="pure-u-1-8">
+        <button (click)="agregar()">Agregar</button>
+    </div>
+</div>
+
+<br>
+<div class="pure-g">
+    <div class="pure-u-1-24"></div>
+    <div class="pure-u-5-8">
+        Ultimo
+    </div>
+</div>
+<br>
+
+<div class="pure-g">
+    <div class="pure-u-1-24"></div>
+    <div class="pure-u-23-24">
+        <ul>
+            <li *ngFor="let p of proyectos">
+                <div class="pure-g">
+                    <div class="pure-u-1-4">
+                        {{p.nombre}}
+                    </div>
+                    <div class="pure-u-1-4">
+                        <button (click)="detalle(p.id)">Detalle</button>
+                    </div>
+                </div>
+                <br>
+            </li>
+        </ul>
+    </div>
+</div>

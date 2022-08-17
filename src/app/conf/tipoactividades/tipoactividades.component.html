@@ -1,0 +1,36 @@
+<div class="pure-g">
+    <div class="pure-g pure-u-1">
+        <button (click)="volver()">Volver</button>
+    </div>
+    
+    <div class="pure-u-5-8">
+        <br>
+        <div class="pure-g">
+            <div class="pure-u-1-8">
+                Nombre
+            </div>
+            <div class="pure-u-7-8">
+                <input type="text" [(ngModel)]="nombre">
+            </div>
+        </div>
+        <br>
+        <div class="pure-g">
+            <div class="pure-u-1-4">
+                <button (click)="nuevo()">Nuevo</button>
+            </div>
+            <div class="pure-u-1-4">
+                <button (click)="agregar()">Agregar</button>
+            </div>
+            <div class="pure-u-1-4">
+                <button (click)="eliminar()">Quitar</button>
+            </div>
+        </div>
+
+    </div>
+    <div class="pure-u-3-8">
+        <select  size="5" [(ngModel)]="id_tipo" (change)="actualizarInput()">
+            <option [value]="t.id" *ngFor="let t of tipos">{{t.nombre}}</option>
+        </select>
+    </div>
+
+</div>
