@@ -7,7 +7,7 @@ app.use(cors())
 app.use(parser.json())
 
 app.get('/', (req, res) => {
-    res.send('Jira clone clone')
+    res.send('Jira clone escritorio')
 })
 app.use('/proyectos',require('./router/Proyecto.routes.js'))
 module.exports=app
