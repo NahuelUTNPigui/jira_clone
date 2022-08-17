@@ -27,6 +27,7 @@
     "sequelize": "^6.21.2",
     "sqlite3": "^5.0.8",
     "tslib": "^2.3.0",
+    "yargs": "^17.5.1",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

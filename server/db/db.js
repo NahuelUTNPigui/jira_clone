@@ -1,12 +1,12 @@
 const { DATE } = require('sequelize')
 const {Sequelize,Model,DataTypes }=require('sequelize')
-const sequelize = new Sequelize('sqlite::memory:')
-/*
+//const sequelize = new Sequelize('sqlite::memory:')
+
 const sequelize = new Sequelize({
     dialect: 'sqlite',
-    storage: 'database.sqlite'
+    storage: 'db.db'
   });
-*/
+
 //Me quedo con la opcion delicous las consultas son mas faciles y son menos clases
 
 class Proyecto extends Model{}
