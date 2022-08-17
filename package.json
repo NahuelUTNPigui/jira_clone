@@ -6,6 +6,7 @@
     "start": "ng serve",
     "mi": "ng serve --port 8080 -o",
     "ex": "node server/main.js",
+    "ex_restart":"node server/main.js --restart",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"

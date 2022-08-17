@@ -41,13 +41,17 @@ async function fillFake(fake,ProyectoService,UseCaseService,CriterioService,Veri
     console.log(fake)
 
 }
-async function initApp(db,app,fake,ProyectoService,UseCaseService,CriterioService,VerificableService,EstadoTareaService,TipoActividadService){
+async function initApp(db,app,fake,ProyectoService,UseCaseService,CriterioService,VerificableService,EstadoTareaService,TipoActividadService,argv){
     
+    if(argv.restart && fs.existsSync("./db.db")){
+        fs.unlinkSync("./db.db")
+    }
+
+
     await db.sync({})
+    
     if(argv.restart){
-        if(fs.existsSync('./db.db')){
-            fs.unlinkSync("./db.db")
-        }
+
         await fillFake(fake,ProyectoService,UseCaseService,CriterioService,VerificableService,EstadoTareaService,TipoActividadService)
     
     }
@@ -56,4 +60,4 @@ async function initApp(db,app,fake,ProyectoService,UseCaseService,CriterioServic
     })
 
 } 
-initApp(sequelize,app,fake,ProyectoService,UseCaseService,CriterioService,VerificableService,EstadoTareaService,TipoActividadService)
+initApp(sequelize,app,fake,ProyectoService,UseCaseService,CriterioService,VerificableService,EstadoTareaService,TipoActividadService,argv)
