@@ -8,3 +8,6 @@ Transiciones de las tareas que tienen un estado segun el proyecto
 
 cli no test
 ng generate component --skip-tests=true component-name
+
+
+Hinchando los huevos
