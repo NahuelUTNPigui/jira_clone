@@ -1,5 +1,5 @@
 const express=require('express')
-const {ProyectoController} = require('../controller/Proyectos.controller.js')
+const {ProyectoController} = require('../controller/Proyectos.controller.js');
 var router = express.Router();
 
 router.use('/:id/estados',require('./EstadoTareas.routes.js'))
@@ -7,6 +7,7 @@ router.use('/:id/usecases',require('./UseCase.router.js'))
 router.use('/:id/tipoactividad',require('./TipoActividad.router.js'))
 router.use('/:id/actividad',require('./Actividad.routes.js'))
 router.use('/:id/tareas',require("./Tarea.routes.js"))
+router.use('/:id/feature',require("./Feature.routes.js"))
 router.get('/',async (req,res)=>{
     res.json(await ProyectoController.getAllProyectos())
 })

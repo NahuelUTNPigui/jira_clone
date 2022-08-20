@@ -71,7 +71,7 @@ async function addNoTrans(actividad){
     }
 }
 async function addActividad(actividad){
-    console.log(actividad)
+    
     try{
         const result=await sequelize.transaction(async (t)=>{
             //Primero guardo la info
@@ -94,15 +94,14 @@ async function addActividad(actividad){
                 cod_proyecto:actividad.cod_proyecto,
                 cod_tipo_actividad:actividad.tipo_actividad,
                 cod_tarea:tarea_db.dataValues.id
-            })
+            },{transaction:t})
             return actividad_db
         })
         return result
     }catch(err){
         console.log(err)
+        return {error:err}
     }
-
-    return await Actividad.create(toActividad(Actividad))
 }
 //Deberia modificar la tarea e info asociada
 async function modActividad(Actividad){
@@ -112,8 +111,8 @@ async function modActividad(Actividad){
 async function delActividad(id){
     return await Actividad.destroy({where:{id:id}})
 }
-async function getActividadsWhere(where){
-    return await Actividad.findAll({where})
+async function getActividadesWhere(where){
+    return await Actividad.findAll(where)
 }
 module.exports={ActividadService:{
     getActividad,
@@ -122,5 +121,5 @@ module.exports={ActividadService:{
     addActividad,
     modActividad,
     addNoTrans,
-    getActividadsWhere
+    getActividadesWhere
 }}

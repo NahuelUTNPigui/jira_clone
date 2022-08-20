@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { Observable,of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
-import { Actividad } from '../models/Actividad';
+import { Feature } from '../models/Feature';
 @Injectable({
   providedIn: 'root'
 })
-export class ActividadService {
+export class FeatureserviceService {
   puerto=10100
   private url=`http://localhost:${this.puerto}/proyectos`
   httpOptions={
-    headers: new HttpHeaders({ 'Content-Type': 'application/json'})
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
   constructor(private http:HttpClient) {
   }
@@ -24,14 +24,14 @@ export class ActividadService {
       return of(result as T);
     };
   }
-  addActvidad(cod_proyecto:number,act: Actividad){
-    return this.http.post<Actividad>(`${this.url}/${cod_proyecto}/actividad`,act,this.httpOptions).pipe(
-      catchError(this.handleError<Actividad>("add actividad",act))
+  addFeature(cod_proyecto:number, f:Feature){
+    return this.http.post<Feature>(`${this.url}/${cod_proyecto}/feature`,f,this.httpOptions).pipe(
+      catchError(this.handleError<Feature>("add feauture",f))
     ) 
   }
-  getActividades(cod_proyecto:number){
-    return this.http.get<Array<Actividad>>(`${this.url}/${cod_proyecto}/actividad/all`,this.httpOptions).pipe	(
-      catchError(this.handleError<Array<Actividad>>("get actividadaes",[]))
+  getFeatures(cod_proyecto:number):Observable<Array<Feature>>{
+    return this.http.get<Array<Feature>>(`${this.url}/${cod_proyecto}/actividad`,this.httpOptions).pipe	(
+      catchError(this.handleError<Array<Feature>>("get features",[]))
     )
   }
 }

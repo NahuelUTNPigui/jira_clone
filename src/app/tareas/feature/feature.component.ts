@@ -48,9 +48,19 @@ export class FeatureComponent implements OnInit {
     this._location.back()
   }
   validar(){
-    return true
+    if(this.nombre!==""){
+      return true
+    }
+    else{
+      return true
+    }
+
   }
-  guardar(){}
+  guardar(){
+    if(this.validar()){
+      
+    }
+  }
   actualizarInput(){
     let estado_elegido=this.estados.filter(e=>e.id===Number(this.idEstado))
     let criterio_elegido=this.criterios.filter(c=>c.id===Number(this.idCriterio))
