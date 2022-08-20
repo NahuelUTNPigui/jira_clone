@@ -103,5 +103,5 @@ dist
 # TernJS port file
 .tern-port
 .angular
-./db.db
+db.db
 ./ideas.txt
