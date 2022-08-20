@@ -12,7 +12,7 @@
         <div class="pure-u-1-2">
             <label for="cboTipoTarea">Tipo Tarea</label>
             <select name="" id="">
-                <option>Actividad</option>
+                <option>Feature</option>
             </select>
         </div>
     </div>
@@ -21,22 +21,22 @@
         <br>
         <div class="pure-u-1-2">
             <label for="">Nombre</label>
-            <input type="text" name="" id="">
+            <input type="text" [(ngModel)]="nombre">
         </div>
         <div class="pure-u-1-2">
             <label for="taDescripcion">Descripcion</label>
-            <textarea id="taDescripcion" cols="30" rows="10"></textarea>
+            <textarea id="taDescripcion" cols="30" rows="10" [(ngModel)]="descripcion"></textarea>
         </div>
     </div>
     <div class="pure-g pure-u-1">
         <br>
         <div class="pure-u-1-2">
             <label for="">Gravedad</label>
-            <input type="text">
+            <input type="text" [(ngModel)]="gravedad">
         </div>
         <div class="pure-u-1-2">
             <label for="">Prioridad</label>
-            <input type="text">
+            <input type="text" [(ngModel)]="prioridad">
         </div>
 
     </div>
@@ -44,7 +44,7 @@
         <br>
         <div class="pure-u-1-2">
             <label for="">Esfuerzo estimado</label>
-            <input type="text">
+            <input type="text" [(ngModel)]="esfuerzo_estimado">
         </div>
         <div class="pure-u-1-2">
             <label for="">Estado</label>
@@ -58,4 +58,45 @@
     <div class="pure-g pure-u-1">
         <hr/>
     </div>
-</div>
+    <div class="pure-g pure-u-1">
+        <div class="pure-u-1-4">
+            <label for="">Id: </label>
+            <input type="text">
+        </div>
+        <div class="pure-u-1-4">
+            <button>...</button>
+            <input type="text">
+        </div>
+        <div class="pure-u-1-4">
+            <button>Buscar caso de uso</button>
+        </div>
+    </div>
+    <div class="pure-g pure-u-1">
+        <h2>Criterios de aceptacion</h2>
+    </div>
+    <div class="pure-g pure-u-1">
+        <div class="pure-g pure-u-1-2">
+            <div class="pure-g pure-u-1">
+                <label for="">Criterio: </label>
+                <div class="pure-g pure-u-1-3">          
+                    <input type="text" [(ngModel)]="nombre_criterio">    
+                </div>
+                <div class="pure-u-1-3">
+                    <button (click)="agregarCriterio()">Agregar</button>
+                </div>
+                
+            </div>
+            <div class="pure-g pure-u-1">
+                Verificado
+                <input type="checkbox" [(ngModel)]="verificado_criterio">
+                <button (click)="quitarCriterio()">Quitar</button>
+                <button (click)="nuevoCriterio()">Nuevo</button>
+            </div>
+        </div>
+        <div class="pure-g pure-u-1-2">
+            <select size="5" [(ngModel)]="idCriterio" (change)="actualizarInput()">
+                <option [value]="criterio.id" *ngFor="let criterio of criterios">{{criterio.nombre}}</option>
+            </select>
+        </div>
+    </div>
+</div> 

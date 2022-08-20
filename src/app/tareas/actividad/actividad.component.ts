@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common'
-import { TipotareaService } from 'src/app/services/tipotarea.service';
 import { EstadotareasService } from 'src/app/services/estadotareas.service';
 import { TipoactividadService } from 'src/app/services/tipoactividad.service';
 import { EstadoTarea } from 'src/app/models/EstadoTarea';
-import { TipoTarea } from 'src/app/models/TipoTarea';
 import { TipoActividad } from 'src/app/models/TipoActividad';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ActividadService } from 'src/app/services/actividad.service';
 import { Actividad } from 'src/app/models/Actividad';
 @Component({
@@ -38,9 +36,7 @@ export class ActividadComponent implements OnInit {
   gravedad:number=0
   constructor(
     private route: ActivatedRoute,
-    private router:Router,
     private _location:Location, 
-    private tipoTareaService:TipotareaService,
     private tipoActividadService:TipoactividadService,
     private estadoTareaService:EstadotareasService,
     private actividadService: ActividadService) {
