@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { EstadoTarea } from 'src/app/models/EstadoTarea';
 import { Location } from '@angular/common'
 import { EstadotareasService } from 'src/app/services/estadotareas.service';
+import { BugserviceService } from 'src/app/services/bugservice.service';
 import { ActivatedRoute } from '@angular/router';
 import { Criterio } from 'src/app/models/Criterio';
 import { UsecaseService } from 'src/app/services/usecase.service';
 import { UseCase } from 'src/app/models/UseCase';
 import { BugRecipe } from 'src/app/models/BugRecipe';
 import { Precondicion } from 'src/app/models/Precondicion';
+import { Bug } from 'src/app/models/Bug';
 @Component({
   selector: 'app-bug',
   templateUrl: './bug.component.html',
@@ -39,6 +41,7 @@ export class BugComponent implements OnInit {
     aceptado:false
   }
   //Bug Recipe
+  //Lo del orden se arreglaria con linked list
   bug_recipe:BugRecipe[]=[]
   descripcion_recipe=""
   orden_recipe=0
@@ -51,7 +54,7 @@ export class BugComponent implements OnInit {
   //Precondiciones
   precondiciones:Precondicion[]=[]
   condicion_precondicion=""
-  idPrecondicion=0
+  idPrecondicion=-1
   precondicion_elegida={
     id:-1,
     condicion:""
@@ -63,7 +66,8 @@ export class BugComponent implements OnInit {
     private route: ActivatedRoute,
     private _location:Location, 
     private estadoTareaService:EstadotareasService,
-    private useCaseService: UsecaseService
+    private useCaseService: UsecaseService,
+    private bugService:BugserviceService
   ) { }
 
   ngOnInit(): void {
@@ -80,7 +84,7 @@ export class BugComponent implements OnInit {
     this._location.back()
   }
   validar(){
-    if(this.nombre!==""){
+    if(this.nombre!=="" && this.nombre_use_case!=="" && this.idEstado!=-1 && this.cod_use_case!=-1){
       return true
     }
     else{
@@ -90,7 +94,20 @@ export class BugComponent implements OnInit {
   }
   guardar(){
     if(this.validar()){
-
+      let bug:Bug={
+        id:-1,
+        cod_use_case:this.cod_use_case,
+        nombre:this.nombre,
+        descripcion:this.descripcion,
+        cod_estado:this.idEstado,
+        backlog:true,
+        backlog_actual:false,
+        cod_tipo_tarea:3,
+        gravedad:this.gravedad,
+        esfuerzo_estimado:this.esfuerzo_estimado,
+        prioridad:this.prioridad
+      }
+      this.bugService.addBug(this.idP,bug,this.criterios,this.precondiciones,this.bug_recipe).subscribe(b=>console.log(b))
     }
   }
   buscarUC(){
@@ -117,9 +134,20 @@ export class BugComponent implements OnInit {
       })
     }
   }
+  //No la uso pero es util
+  showIds(){
+    console.log("ID Bug Recipe : %d",this.idBugRecipe)
+    console.log("ID Precondicion : %d",this.idPrecondicion)
+    console.log("ID Criterio : %d",this.idCriterio)
+
+  }
   actualizarInput(){
+    
+    //Si prestas atencion estoy repitiendo codigo
     let estado_elegido=this.estados.filter(e=>e.id===Number(this.idEstado))
     let criterio_elegido=this.criterios.filter(c=>c.id===Number(this.idCriterio))
+    let bug_recipe_elegido=this.bug_recipe.filter(bg=>bg.id===Number(this.idBugRecipe))
+    let precondicion_elegida=this.precondiciones.filter(p=>p.id===Number(this.idPrecondicion))
     if(estado_elegido.length===1){
       this.idEstado=estado_elegido[0].id
     }
@@ -129,11 +157,23 @@ export class BugComponent implements OnInit {
       this.nombre_criterio=criterio_elegido[0].nombre
       this.verificado_criterio=criterio_elegido[0].aceptado
     }
+    if(bug_recipe_elegido.length===1){
+      this.idBugRecipe=bug_recipe_elegido[0].id
+      this.orden_recipe=bug_recipe_elegido[0].orden
+      this.descripcion_recipe=bug_recipe_elegido[0].descripcion
+      this.bug_recipe_elegido=bug_recipe_elegido[0]
+    }
+    if(precondicion_elegida.length===1){
+      this.idPrecondicion=precondicion_elegida[0].id
+      this.condicion_precondicion=precondicion_elegida[0].condicion
+      this.precondicion_elegida=precondicion_elegida[0]
+    }
+    
   }
   //Nuevos
   nuevoCriterio(){
     this.nombre_criterio=""
-    this.idCriterio=0
+    this.idCriterio=-1
     this.verificado_criterio=false
     this.criterio_elegido={
       id:-1,
@@ -145,7 +185,7 @@ export class BugComponent implements OnInit {
   nuevoBugRecipe(){
     this.descripcion_recipe=""
     this.orden_recipe=0
-    this.idBugRecipe=0
+    this.idBugRecipe=-1
     this.bug_recipe_elegido={
       descripcion:"",
       orden:0,
@@ -154,7 +194,7 @@ export class BugComponent implements OnInit {
   }
   nuevaPrecondicion(){
     this.condicion_precondicion=""
-    this.idPrecondicion=0
+    this.idPrecondicion=-1
     this.precondicion_elegida={
       condicion:"",
       id:-1
@@ -174,7 +214,7 @@ export class BugComponent implements OnInit {
     this.nuevaPrecondicion()
   }
   //guardar listas
-  guardarCriterio(){
+  agregarCriterio(){
     if(this.nombre_criterio!==""){
       if(this.idCriterio!==-1){
         this.criterio_elegido.nombre=this.nombre_criterio
@@ -213,23 +253,28 @@ export class BugComponent implements OnInit {
         br_sig.orden+=1
       }
     }
+    
   }
   pushBugRecipe(bg:BugRecipe,id:number){
+    if(id!==-1){
+      this.bug_recipe=this.bug_recipe.filter(bg=>bg.id!==id)
+    }
     this.bug_recipe.splice(bg.orden-1,0,bg)
+    
   }
   guardarBugRecipe(){
-    if(this.descripcion_recipe!==""){
+    if(this.descripcion_recipe!=="" && this.orden_recipe>0){
       if(this.idBugRecipe!==-1){
         this.bug_recipe_elegido.descripcion=this.descripcion_recipe
-        this.bug_recipe_elegido.orden=this.orden_recipe
+        this.bug_recipe_elegido.orden=Number(this.orden_recipe)
         this.pushBugRecipe(this.bug_recipe_elegido,this.idBugRecipe)
       }else{
         let bg:BugRecipe={
           id:this.bug_recipe.length+1,
           descripcion:this.descripcion_recipe,
-          orden:this.orden_recipe,
+          orden:Number(this.orden_recipe),
         }
-        this.pushBugRecipe(bg,this.idBugRecipe)
+        this.pushBugRecipe(bg,-1)
       }
       this.modificarOrdenesBug()
       this.nuevoBugRecipe()
@@ -249,18 +294,21 @@ export class BugComponent implements OnInit {
   }
 
   guardarPrecondicion(){
+    
     if(this.condicion_precondicion!==""){
+      
       if(this.idPrecondicion!=-1){
         this.precondicion_elegida.condicion=this.condicion_precondicion
       }else{
         let p:Precondicion={
-          id:this.precondiciones.length,
+          id:this.precondiciones.length+1,
           condicion:this.condicion_precondicion
         }
-        this.precondiciones.push()
-        this.nuevaPrecondicion()
+        this.precondiciones.push(p)
+        
       }
     }
+    this.nuevaPrecondicion()
   }
   quitarPrecondicion(){
     if(this.idPrecondicion!==-1){

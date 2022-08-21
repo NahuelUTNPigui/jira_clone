@@ -66,8 +66,13 @@ export class ActividadComponent implements OnInit {
     }
   }
   validar(){
+    if(this.nombre!=="" && this.idEstado!=-1){
+      return true
+    }
+    else{
+      return false
+    }
     
-    return true
   }
   //Aca debo guardar la tarea como actividad y su info
   guardar(){

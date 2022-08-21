@@ -63,7 +63,7 @@ export class FeatureComponent implements OnInit {
     this._location.back()
   }
   validar(){
-    if(this.nombre!=="" && this.nombre_use_case!==""){
+    if(this.nombre!=="" && this.nombre_use_case!=="" && this.idEstado!=-1 && this.cod_use_case!=-1){
       return true
     }
     else{
