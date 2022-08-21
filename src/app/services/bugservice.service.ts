@@ -40,7 +40,7 @@ export class BugserviceService {
     )
   }
   getBugs(cod_proyecto:number){
-    return this.http.get<Array<BugCriterioPrecondicionRecipe>>(`${this.url}/${cod_proyecto}/bug`,this.httpOptions).pipe(
+    return this.http.get<Array<BugCriterioPrecondicionRecipe>>(`${this.url}/${cod_proyecto}/bug/all`,this.httpOptions).pipe(
       catchError(this.handleError<Array<BugCriterioPrecondicionRecipe>>("get bugs",[]))
     )
   }
