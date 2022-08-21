@@ -145,9 +145,6 @@ Precondicion.init({
   condicion:{
     type:DataTypes.STRING,
     allowNull:false
-  },orden:{
-    type:DataTypes.INTEGER,
-    defaultValue:0  
   },cod_bug:{
     type:DataTypes.INTEGER,
     allowNull:false  

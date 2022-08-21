@@ -32,7 +32,13 @@ export class FeatureComponent implements OnInit {
   nombre_criterio:string=""
   verificado_criterio:boolean=false
   idCriterio:number=-1
-  //Featurea
+  criterio_elegido:Criterio={
+    id:-1,
+    nombre:"",
+    cod_verificable:-1,
+    aceptado:false
+  }
+  //Feature
   cod_use_case=-1
   nombre_use_case=""
   constructor(
@@ -87,7 +93,7 @@ export class FeatureComponent implements OnInit {
     
   }
   buscarUC(){
-    if(this.cod_use_case!==0){
+    if(this.cod_use_case>0){
       let uc:UseCase={
         id:-1,
         nombre:"",
@@ -117,7 +123,7 @@ export class FeatureComponent implements OnInit {
       this.idEstado=estado_elegido[0].id
     }
     if(criterio_elegido.length===1){
-      
+      this.criterio_elegido=criterio_elegido[0]  
       this.idCriterio=criterio_elegido[0].id
       this.nombre_criterio=criterio_elegido[0].nombre
       this.verificado_criterio=criterio_elegido[0].aceptado
@@ -139,22 +145,37 @@ export class FeatureComponent implements OnInit {
     this.idCriterio=-1
     this.nombre_criterio=""
     this.verificado_criterio=false
+    this.criterio_elegido={
+      id:-1,
+      nombre:"",
+      cod_verificable:-1,
+      aceptado:false      
+    }
   }
   agregarCriterio(){
     if(this.nombre_criterio!==""){
-      let c:Criterio={
-        id:this.criterios.length+1,
-        nombre:this.nombre_criterio,
-        cod_verificable:-1,
-        aceptado:this.verificado_criterio
+      if(this.idCriterio!==-1){
+        this.criterio_elegido.nombre=this.nombre_criterio
+        this.criterio_elegido.aceptado=this.verificado_criterio
+      }else{
+        let c:Criterio={
+          id:this.criterios.length+1,
+          nombre:this.nombre_criterio,
+          cod_verificable:-1,
+          aceptado:this.verificado_criterio
+        }
+        this.criterios.push(c)
+  
       }
-      this.criterios.push(c)
       this.nuevoCriterio()
     }
   }
   quitarCriterio(){
-    if(this.idCriterio){
+    if(this.idCriterio!==-1){
       this.criterios=this.criterios.filter(c=>c.id!==this.idCriterio)
+      for(let i=0;i<this.criterios.length;i++){
+        this.criterios[i].id=i+1
+      }
       this.nuevoCriterio()
     }
   }
