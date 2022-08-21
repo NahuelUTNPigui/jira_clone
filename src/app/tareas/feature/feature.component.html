@@ -61,11 +61,11 @@
     <div class="pure-g pure-u-1">
         <div class="pure-u-1-4">
             <label for="">Id: </label>
-            <input type="text">
+            <input type="text" [(ngModel)]="cod_use_case">
         </div>
         <div class="pure-u-1-4">
-            <button>...</button>
-            <input type="text">
+            <button (click)="buscarUC()">...</button>
+            <input type="text" [(ngModel)]="nombre_use_case">
         </div>
         <div class="pure-u-1-4">
             <button>Buscar caso de uso</button>
@@ -88,7 +88,11 @@
             </div>
             <div class="pure-g pure-u-1">
                 Verificado
-                <input type="checkbox" [(ngModel)]="verificado_criterio">
+                
+                <select [(ngModel)]="verificado_criterio" >
+                    <option value="true">Si</option>
+                    <option value="false">No</option>
+                </select>
                 <button (click)="quitarCriterio()">Quitar</button>
                 <button (click)="nuevoCriterio()">Nuevo</button>
             </div>

@@ -16,7 +16,7 @@ export class UsecaseService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
   private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
+    return (error: any): Observable<T>  => {
 
       // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
@@ -30,8 +30,8 @@ export class UsecaseService {
     )
   }
   getUseCase(cod_proyect:number,id_uc:number){
-    return this.http.get<Array<UseCase>>(`${this.url}/${cod_proyect}/usecases/${id_uc}/usecase`,this.httpOptions).pipe	(
-      catchError(this.handleError<Array<UseCase>>("use cases",[]))
+    return this.http.get<UseCase>(`${this.url}/${cod_proyect}/usecases/${id_uc}/usecase`,this.httpOptions).pipe	(
+      catchError(this.handleError<UseCase>("use cases",{id:-1,nombre:"",descripcion:"",cod_proyecto:-1,cod_verificable:-1}))
     )
   }
   addUseCase(usecase:UseCase):Observable<UseCase>{

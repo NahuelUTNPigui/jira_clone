@@ -43,6 +43,7 @@
                 </div>
             </div>
             <div class="pure-u-1-2">
+                Criterios
                 <select  size="5" [(ngModel)]="id" (change)="show()">
                     
                     <option [value]="criterio.id" *ngFor="let criterio of criterios">{{criterio.nombre}}</option>

@@ -21,9 +21,7 @@ export class AddusecaseComponent implements OnInit {
     cod_verificable:-1
   }
   criterios:Criterio[]=[
-    {id:1,nombre:"nada",cod_verificable:1,aceptado:false},
-    {id:2,nombre:"2",cod_verificable:1,aceptado:false},
-    {id:3,nombre:"3",cod_verificable:1,aceptado:false}
+    {id:1,nombre:"nada",cod_verificable:1,aceptado:false}
   ]
   nombreCriterio:string=""
   ultimoId:number=0
@@ -93,7 +91,7 @@ export class AddusecaseComponent implements OnInit {
         aceptado:false
       }
       this.criterios.push(n_criterio)  
-      console.log(n_criterio.id)
+      
     }
 
   }
@@ -108,7 +106,7 @@ export class AddusecaseComponent implements OnInit {
         cod_verificable:-1,
         aceptado:false
       }
-      console.log(this.criterios)
+      
     }
   }
 }

@@ -1,5 +1,6 @@
 export interface Feature{
     //Feature
+    id:number
     cod_use_case : number
     //Tarea
     nombre:string
