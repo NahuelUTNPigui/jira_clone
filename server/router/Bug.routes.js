@@ -1,14 +1,18 @@
 const express=require('express')
-const {RouterController}=require("../controller/Router.controller.js")
+const {BugController}=require("../controller/Bug.controller.js")
 var router = express.Router({mergeParams: true});
 router.get('/usecase/:uc',async(req,res)=>{
     let uc=req.params.uc
-    res.json( (uc))
+    res.json( await BugController.getAllBugUC(uc))
+})
+router.get('/all',async(req,res)=>{
+    let cod_proyecto=req.params.id
+    res.json(await BugController.getAllBugP(cod_proyecto))
 })
 router.post('/',async(req,res)=>{
-    let fyc=req.body
+    let bcpyr=req.body
     
-    res.json( (fyc))
+    res.json(await BugController.addBug(bcpyr))
 })
 
 module.exports=router

@@ -1,4 +1,4 @@
-const{Bug,Criterio,BugRecipe,Precondicion,Verificable,sequelize} = require('../db/db.js')
+const{Bug,Criterio,BugRecipe,Precondicion,Verificable,Tarea,Info,UseCase,sequelize} = require('../db/db.js')
 // Bug.init({
     // nombre:{
     //   },descripcion:{
@@ -20,6 +20,20 @@ async function getBugs(){
 async function getBug(id){
     return await Bug.findByPk(id)
 }
+/*
+    El formato del bug es:
+        id:-1,
+        cod_use_case:this.cod_use_case,
+        nombre:this.nombre,
+        descripcion:this.descripcion,
+        cod_estado:this.idEstado,
+        backlog:true,
+        backlog_actual:false,
+        cod_tipo_tarea:3,
+        gravedad:this.gravedad,
+        esfuerzo_estimado:this.esfuerzo_estimado,
+        prioridad:this.prioridad
+*/
 async function addBug(bcpyr){
     try{
 
@@ -40,7 +54,7 @@ async function addBug(bcpyr){
                 backlog_actual:false,
                 cod_info:info_db.dataValues.id
             },{transaction:t})
-            let bug_db=Bug.create({
+            let bug_db=await Bug.create({
                 cod_verificable:v_db.dataValues.id,
                 cod_tarea:tarea_db.dataValues.id,
                 cod_use_case:bcpyr.bug.cod_use_case
@@ -65,20 +79,32 @@ async function addBug(bcpyr){
 
 
 }
+//Nunca vas a modificar un bug dada sus caracteristicas,onda va a ser distinto
 async function modBug(Bug){
     return await Bug.update(toBug(Bug),{where:{id:Bug.id}})
 }
+//Debo eliminar todo lo que esta incluido en el bug
 async function delBug(id){
     return await Bug.destroy({where:{id:id}})
 }
+async function getAllBugP(cod_proyecto){
+    const uc_db=await UseCase.findAll({where:{cod_proyecto}})
+    let promesas_bugs=[]
+
+    uc_db.forEach(uc=>{
+        promesas_bugs.push(Bug.findAll({where:{cod_use_case:uc.dataValues.id}}))
+    })
+    return await Promise.all(promesas_bugs)
+
+}
 async function getBugsWhere(where){
-    return await Bug.findAll({where})
+    return await Bug.findAll(where)
 }
 module.exports={BugService:{
     getBug,
     getBugs,
     delBug,
     addBug,
-    modBug,
-    getBugsWhere
+    getBugsWhere,
+    getAllBugP
 }}

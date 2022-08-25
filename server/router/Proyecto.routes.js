@@ -8,6 +8,7 @@ router.use('/:id/tipoactividad',require('./TipoActividad.router.js'))
 router.use('/:id/actividad',require('./Actividad.routes.js'))
 router.use('/:id/tareas',require("./Tarea.routes.js"))
 router.use('/:id/feature',require("./Feature.routes.js"))
+router.use('/:id/bug',require("./Bug.routes.js"))
 router.get('/',async (req,res)=>{
     res.json(await ProyectoController.getAllProyectos())
 })
